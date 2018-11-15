@@ -1,4 +1,5 @@
 #include<iostream>
+#include<stack_array_str.h>
 #include<string.h>
 using namespace std;
 	void accept(char *,char *);
@@ -47,7 +48,7 @@ int main()
 				      }
 		}
 	    cout<<"\n___________________________________________________\n";
-	}while(c!=0 && c<4 && c>0);
+	}while(c!=0 && c<5 && c>0);
 	return 0;
 }
 
@@ -66,6 +67,92 @@ int main()
 		}
 
 void convert(char *copyarrstring){
+    char symbolstack[20],outputstack[20];
+    int i=0,topsymbolstack=-1,topoutputstack=-1;
+    while(copyarrstring[i]!='\0')
+    {
+        if(isempty(topoutputstack)==1)
+                    {
+                        cout<<"\n output:";
+                        cout<<"Stack underflow!!!";
+                    }
+                    else
+                    {
+                        cout<<"\n output:";
+                       display(outputstack);
+                    }
+                    if(isempty(topsymbolstack)==1)
+                    {
+                       cout<<"\n symbol:";
+                        cout<<"Stack underflow!!!";
+                    }
+                    else
+                    {
+                         cout<<"\n symbol:";
+                         display(symbolstack);
+                    }
+        cout<<"\n i:"<<i;
+       if((int)copyarrstring[i]==')'||(int)copyarrstring[i]==']'||(int)copyarrstring[i]=='}')
+        {
+                 if(isempty(topsymbolstack)==1&&i==0)
+                {
+                    cout<<"\n error!!! Wrong input";
+                    break;
+                }else
+                {
+                   if((int)copyarrstring[i]==')')
+                    {
+                        char popped;
+                        while((int)symbolstack[topsymbolstack]!=(int)copyarrstring[i]-1)
+                        {
 
+                            popped=pop(symbolstack,topsymbolstack);
+                            topsymbolstack--;
+                            topoutputstack=push(outputstack,topoutputstack,popped);
+                            outputstack[topoutputstack+1]='\0';
+                        }
+                        popped=pop(symbolstack,topsymbolstack);
+                        topsymbolstack--;
+                    }
+                    else
+                    {
+                        if((int)copyarrstring[i]==']'||(int)copyarrstring[i]=='}')
+                        {
+                            char popped;
+                             while((int)symbolstack[topsymbolstack]!=(int)copyarrstring[i]-2)
+                            {
+
+                                popped=pop(symbolstack,topsymbolstack);
+                                topsymbolstack--;
+                                topoutputstack=push(outputstack,topoutputstack,popped);
+                                outputstack[topoutputstack+1]='\0';
+                                }
+                                popped=pop(symbolstack,topsymbolstack);
+                                topsymbolstack--;
+                            }
+                      }
+
+
+                    }
+                    i++;
+        }
+        else
+        {
+            if((int)copyarrstring[i]>64&&(int)copyarrstring[i]<91||(int)copyarrstring[i]>96&&(int)copyarrstring[i]<123)
+        {
+            topoutputstack=push(outputstack,topoutputstack,copyarrstring[i++]);
+            outputstack[topoutputstack+1]='\0';
+
+
+        }else
+        {
+            topsymbolstack=push(symbolstack,topsymbolstack,copyarrstring[i++]);
+            symbolstack[topsymbolstack+1]='\0';
+        }
+        }
+
+    }
+
+strcpy(copyarrstring,outputstack);
 }
 
