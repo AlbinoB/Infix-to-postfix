@@ -71,27 +71,6 @@ void convert(char *copyarrstring){
     int i=0,topsymbolstack=-1,topoutputstack=-1;
     while(copyarrstring[i]!='\0')
     {
-        if(isempty(topoutputstack)==1)
-                    {
-                        cout<<"\n output:";
-                        cout<<"Stack underflow!!!";
-                    }
-                    else
-                    {
-                        cout<<"\n output:";
-                       display(outputstack);
-                    }
-                    if(isempty(topsymbolstack)==1)
-                    {
-                       cout<<"\n symbol:";
-                        cout<<"Stack underflow!!!";
-                    }
-                    else
-                    {
-                         cout<<"\n symbol:";
-                         display(symbolstack);
-                    }
-        cout<<"\n i:"<<i;
        if((int)copyarrstring[i]==')'||(int)copyarrstring[i]==']'||(int)copyarrstring[i]=='}')
         {
                  if(isempty(topsymbolstack)==1&&i==0)
@@ -131,8 +110,6 @@ void convert(char *copyarrstring){
                                 topsymbolstack--;
                             }
                       }
-
-
                     }
                     i++;
         }
